@@ -8,8 +8,17 @@
     "start": "next start"
   },
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
+    "firebase": "^7.14.2",
     "next": "9.3.5",
+    "node-fetch": "^2.6.0",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-bootstrap": "^1.0.1",
+    "react-circular-progressbar": "^2.0.3",
+    "react-dom": "16.13.1",
+    "react-icons": "^3.10.0",
+    "react-score-indicator": "^2.2.1"
   }
 }

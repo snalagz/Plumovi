@@ -1,204 +1,76 @@
 import Head from 'next/head'
+import React, { useContext } from 'react';
+import Store from '../store/store'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button'
+import TrendsMovie from '../components/trendsMovie'
+import TrendsTV from '../components/trendsTV'
+import Latest from '../components/latest'
+import fetch from 'node-fetch'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
 
-export default function Home() {
+function Home({ dataTrendsMovie, dataTrendsTV, dataLatest }) {
+  const { state, dispatch } = useContext(Store);
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>Plumovi - Film ve Dizileri Keşfet !</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <Container>
+        <Row>
+          <Col sm={12}>
+            <h3>En Popüler</h3>
+          </Col>
+          <Col sm={12}>
+            <Tabs defaultActiveKey="movie" id="uncontrolled-tab-example">
+              <Tab eventKey="movie" title="Filmler">
+                <TrendsMovie dataMovies={dataTrendsMovie} />
+              </Tab>
+              <Tab eventKey="tvSeries" title="Diziler">
+                <TrendsTV dataMovies={dataTrendsTV} />
+              </Tab>
+            </Tabs>
+          </Col>
+        </Row>
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
 
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/zeit/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://zeit.co/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with ZEIT Now.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer>
-        <a
-          href="https://zeit.co?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by <img src="/zeit.svg" alt="ZEIT Logo" />
-        </a>
-      </footer>
-
-      <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer img {
-          margin-left: 0.5rem;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        a {
-          color: inherit;
-          text-decoration: none;
-        }
-
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
-
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
-
-        .title {
-          margin: 0;
-          line-height: 1.15;
-          font-size: 4rem;
-        }
-
-        .title,
-        .description {
-          text-align: center;
-        }
-
-        .description {
-          line-height: 1.5;
-          font-size: 1.5rem;
-        }
-
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        .card {
-          margin: 1rem;
-          flex-basis: 45%;
-          padding: 1.5rem;
-          text-align: left;
-          color: inherit;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .card:hover,
-        .card:focus,
-        .card:active {
-          color: #0070f3;
-          border-color: #0070f3;
-        }
-
-        .card h3 {
-          margin: 0 0 1rem 0;
-          font-size: 1.5rem;
-        }
-
-        .card p {
-          margin: 0;
-          font-size: 1.25rem;
-          line-height: 1.5;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
+        <Row>
+          <Col sm={12}>
+            <h3>En Yeni Filmler</h3>
+          </Col>
+          <Col sm={12}>
+            <Latest data={dataLatest} />
+          </Col>
+        </Row>
+      </Container>
     </div>
   )
 }
+
+export async function getServerSideProps({ query }) {
+  const resTrendsMovie = await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=94ec2f0211fe06a3b2bc9827439383d8`)
+  const dataTrendsMovie = await resTrendsMovie.json()
+
+  const resTrendsTV = await fetch(`https://api.themoviedb.org/3/trending/tv/day?api_key=94ec2f0211fe06a3b2bc9827439383d8`)
+  const dataTrendsTV = await resTrendsTV.json()
+
+  const resLatest = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=94ec2f0211fe06a3b2bc9827439383d8&language=tr-TR&page=1
+  `)
+  const dataLatest = await resLatest.json();
+  // Pass data to the page via props
+  return {
+    props: {
+      dataTrendsMovie,
+      dataTrendsTV,
+      dataLatest
+    }
+  }
+}
+
+export default Home;
