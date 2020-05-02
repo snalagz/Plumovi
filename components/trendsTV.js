@@ -16,7 +16,8 @@ function TrendsTV(props) {
                     width: '150px',
                     height: 'auto', whiteSpace: 'pre-wrap',
                     display: 'inline-block', verticalAlign: 'top', border: 'none',
-                    marginRight: '10px', overflow: 'hidden'
+                    marginRight: '10px', overflow: 'hidden',
+                    backgroundColor:'#1a1a1a'
                 }}>
                     {
                         item.poster_path = "http://image.tmdb.org/t/p/w185" + item.poster_path,

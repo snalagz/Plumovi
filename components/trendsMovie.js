@@ -16,7 +16,8 @@ function Trends(props) {
                     width: '150px',
                     height: 'auto', whiteSpace: 'pre-wrap',
                     display: 'inline-block', verticalAlign: 'top', border: 'none',
-                    marginRight: '10px', overflow: 'hidden'
+                    marginRight: '10px', overflow: 'hidden',
+                    backgroundColor:'#1a1a1a'
                 }}>
                     {
                         item.poster_path = "http://image.tmdb.org/t/p/w185" + item.poster_path,
@@ -29,7 +30,7 @@ function Trends(props) {
 
                     <Card.Body>
                         <Card.Subtitle>
-                            <FaStar /> <Badge variant="primary" style={{ verticalAlign: 'baseline, ' }}>{item.vote_average}</Badge>
+                            <FaStar /> <Badge variant="danger" style={{ verticalAlign: 'baseline, ' }}>{item.vote_average}</Badge>
                         </Card.Subtitle>
                         {
 
@@ -50,7 +51,6 @@ function Trends(props) {
                     white-space: nowrap;
                     padding-bottom: 15px;
                     scrollbar-width: thin;
-                    margin-top:10px;
                 }
             `}
             </style>

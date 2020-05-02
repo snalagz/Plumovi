@@ -16,21 +16,28 @@ function latest(props) {
                     width: '150px',
                     height: 'auto', whiteSpace: 'pre-wrap',
                     display: 'inline-block', verticalAlign: 'top', border: 'none',
-                    marginRight: '10px', overflow: 'hidden'
+                    marginRight: '10px', overflow: 'hidden',
+                    backgroundColor:'#1a1a1a'
                 }}>
                     {
                         item.poster_path = "http://image.tmdb.org/t/p/w185" + item.poster_path,
-                        <Card.Img rounded variant="top" src={item.poster_path} style={{ objectFit: 'fill' }} />
+                        item.href = `/filmler/${item.title.split(' ').join('-')}-${item.id}`,
+                        <Card.Link href={item.href}>
+                            <Card.Img rounded variant="top" src={item.poster_path} style={{ objectFit: 'fill' }} />
+                        </Card.Link>
                     }
 
 
                     <Card.Body>
                         <Card.Subtitle>
-                           <FaStar /> <Badge variant="primary" style={{verticalAlign:'baseline, '}}>{item.vote_average}</Badge>
+                            <FaStar /> <Badge variant="danger" style={{ verticalAlign: 'baseline, ' }}>{item.vote_average}</Badge>
                         </Card.Subtitle>
-                        <Card.Link href="#">
-                            <Card.Subtitle className="mb-2 text-muted" style={{marginTop:'3px'}}>{item.title}</Card.Subtitle>
-                        </Card.Link>
+                        {
+
+                            <Card.Link href={item.href}>
+                                <Card.Subtitle className="mb-2 text-muted" style={{ marginTop: '3px' }}>{item.title}</Card.Subtitle>
+                            </Card.Link>
+                        }
                     </Card.Body>
 
 
