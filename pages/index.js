@@ -19,6 +19,10 @@ import Jumbotron from 'react-bootstrap/Jumbotron'
 function Home({ dataTrendsMovie, dataTrendsTV, dataLatest }) {
   return (
     <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
+      <Head>
+        <meta name="google-site-verification" content="EB6N44R3eqxnPIqxzebt3_LK21zeObwvEvi1oWihjdY" />
+        <title>Film ve Dizi Önerici</title>
+      </Head>
       <Navbar />
       <Container>
         <Row>
