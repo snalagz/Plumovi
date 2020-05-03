@@ -67,7 +67,6 @@ function mNavbar() {
     useEffect(() => {
         const uid = localStorage.getItem("uid")
         setUid(setUid);
-        dispatch({ type: "SET_UID", payload: uid });
     }, []);
 
     /*
