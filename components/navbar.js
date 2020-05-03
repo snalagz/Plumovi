@@ -60,6 +60,7 @@ function mNavbar() {
             var errorMessage = error.message;
             var email = error.email;
             var credential = error.credential;
+            console.log(error)
         });
     }
     const [uid, setUid] = useState("");
