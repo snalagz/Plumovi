@@ -13,6 +13,9 @@ import CurrencyFormat from 'react-currency-format';
 import axios from 'axios';
 import Navbar from '../../components/navbar'
 import Container from 'react-bootstrap/Container'
+import { FaHeart } from 'react-icons/fa'
+import { FaBookmark } from 'react-icons/fa'
+import firebase from '../../src/firebase'
 
 function movieDetail(props) {
     const movie = props.dataInfo;
@@ -20,6 +23,38 @@ function movieDetail(props) {
     const year = (movie.release_date).split("-")[0];
     const similarMovies = props.dataSimilar.results;
     const recomMovies = props.dataRecom.results;
+    const addLikeMovies = (movie, year) => {
+        console.log(movie)
+        console.log(year)
+        const uid = localStorage.getItem("uid");
+        const db = firebase.firestore();
+        var userRef = db.collection("Users").doc(uid);
+        userRef.get().then((querySnapshot) => {
+            const userInfo = querySnapshot.data();
+            const likedMoive = {
+                id: movie.id,
+                name: movie.title,
+                photo: movie.poster_path,
+                year: year,
+            }
+            let exist = false;
+            userInfo.likeMovies.forEach( (item,key) => {
+                if(item.id == likedMoive.id){
+                    exist = true;
+                }
+            })
+            if(!exist){
+                userInfo.likeMovies.push(likedMoive)
+                userRef.update({
+                    "likeMovies": userInfo.likeMovies, 
+                }).then(function() {
+                    alert("Film Kayıt Edili")
+                });
+            } else {
+                alert("Film Daha Önce Kayıt Edilmiş")
+            }
+        });
+    }
     return (
         <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
             <Navbar />
@@ -78,6 +113,12 @@ function movieDetail(props) {
                                 </div>
                                 <div>
                                     <span className="infoSpan">Yıl:</span> <span>{year}</span>
+                                </div>
+                                <div style={{marginTop:'4px'}}>
+                                    <Button variant="warning" size="sm" onClick={() => addLikeMovies(movie, year)}> <FaHeart /> Sevdim</Button>
+                                    <Button variant="warning" size="sm" onClick={() => alert("Yapım Aşaması")} style={{marginLeft:'3px'}}> 
+                                        <FaBookmark /> Listeye Ekle
+                                    </Button>
                                 </div>
                             </div>
                         </div>
