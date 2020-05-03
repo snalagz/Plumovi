@@ -14,7 +14,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Store from '../store/store'
 
 function mNavbar() {
-    const { state, dispatch } = useContext(Store);
   
     const closeAuth = () => {
         localStorage.removeItem("uid");
@@ -66,8 +65,8 @@ function mNavbar() {
     const [uid, setUid] = useState("");
     useEffect(() => {
         const uid = localStorage.getItem("uid")
-        setUid(setUid);
-    }, []);
+        setUid(uid);
+    });
 
     /*
         // context değiştiğinde çalışır

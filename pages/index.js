@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React, { useContext } from 'react';
 import TrendsMovie from '../components/trendsMovie'
 import TrendsTV from '../components/trendsTV'
+import RecomMovie from '../components/recomMovie'
 import Latest from '../components/latest'
 import Navbar from '../components/navbar'
 import Store from '../store/store'
@@ -14,16 +15,15 @@ import Col from 'react-bootstrap/Col'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Jumbotron from 'react-bootstrap/Jumbotron'
+
 function Home({ dataTrendsMovie, dataTrendsTV, dataLatest }) {
-  const { state, dispatch } = useContext(Store);
   return (
     <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
       <Navbar />
       <Container>
         <Row>
           <Col>
-            <h3>Senin İçin Film Önerilerimiz</h3>
-
+            <RecomMovie />
           </Col>
           <Col sm={12}>
             <h3>Bugün En Popüler</h3>

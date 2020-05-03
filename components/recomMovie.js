@@ -1,37 +1,31 @@
-import React, { useContext } from 'react';
-import fetch from 'node-fetch'
-import Card from 'react-bootstrap/Card'
+import React, { useState, useEffect, useContext } from 'react';
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import NavDropdown from 'react-bootstrap/NavDropdown'
 import Button from 'react-bootstrap/Button'
-import ProgressBar from 'react-bootstrap/ProgressBar'
-import { FaStar } from 'react-icons/fa'
-import Badge from 'react-bootstrap/Badge'
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+import Form from 'react-bootstrap/Form'
+import FormControl from 'react-bootstrap/FormControl'
+import Dropdown from 'react-bootstrap/Dropdown'
+import { FaGoogle } from 'react-icons/fa';
+import Head from 'next/head'
+import firebase from '../src/firebase'
+import Container from 'react-bootstrap/Container'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Store from '../store/store'
 
-function RecomMovie(props) {
+function RecomMovie() {
+    const [uid, setUid] = useState("");
+    useEffect(() => {
+        const uid = localStorage.getItem("uid")
+        setUid(uid);
+    }, []);
+
     return (
-        
-            <div>
-            {props.dataMovies.map(item => (
-                <div style={{ display: 'inline-block' }}>
-                            <Card style={{ width: '18rem', whiteSpace: 'pre-wrap' }}>
-                                <Card.Img variant="top" src="holder.js/100px180" />
-                                <Card.Body>
-                                    <Card.Title>Card Title</Card.Title>
-                                    <Card.Text>
-                                        Some quick example text to build on the card title and make up the bulk of
-                                        the card's content.
-                                </Card.Text>
-                                    <Button variant="primary">Go somewhere</Button>
-                                </Card.Body>
-                            </Card>
-                        </div>
-            ))}
-            </div>
+        <div>
+            <h3>Senin İçin Film Önerilerimiz</h3>
+            {uid} fsdfsdf
+        </div>
     )
 }
 
-
-
-
-export default RecomMovie
+export default RecomMovie;
