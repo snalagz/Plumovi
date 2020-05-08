@@ -21,7 +21,7 @@ function Home({ dataTrendsMovie, dataTrendsTV, dataLatest }) {
     <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
       <Head>
         <meta name="google-site-verification" content="EB6N44R3eqxnPIqxzebt3_LK21zeObwvEvi1oWihjdY" />
-        <title>Film ve Dizi Önerici</title>
+        <title>Film ve Dizi Öneri Platformu</title>
       </Head>
       <Navbar />
       <Container>
