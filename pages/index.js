@@ -4,6 +4,7 @@ import TrendsMovie from '../components/trendsMovie'
 import TrendsTV from '../components/trendsTV'
 import RecomMovie from '../components/recomMovie'
 import Latest from '../components/latest'
+import HighAverage from '../components/highAverage'
 import Navbar from '../components/navbar'
 import Store from '../store/store'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,7 +17,7 @@ import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 
-function Home({ dataTrendsMovie, dataTrendsTV, dataLatest }) {
+function Home({ dataTrendsMovie, dataTrendsTV, dataLatest, dataHighAverage }) {
   return (
     <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
       <Head>
@@ -24,13 +25,27 @@ function Home({ dataTrendsMovie, dataTrendsTV, dataLatest }) {
         <title>Film ve Dizi Öneri Platformu</title>
       </Head>
       <Navbar />
+
       <Container>
-        <Row>
+        
+        <Row style={{marginTop:'20px'}}>
           <Col>
             <RecomMovie />
           </Col>
+        </Row>
+
+        <Row style={{marginTop:'20px'}}>
           <Col sm={12}>
-            <h3>Bugün En Popüler</h3>
+            <h3>Yakın Tarihli Yüksek Puanlı Film Önerileri</h3>
+          </Col>
+          <Col sm={12}>
+            <HighAverage data={dataHighAverage} />
+          </Col>
+        </Row>
+
+        <Row style={{marginTop:'20px'}}>
+          <Col sm={12}>
+            <h3>Bugünün En Popüler Film Önerileri</h3>
           </Col>
           <Col sm={12}>
             <Tabs defaultActiveKey="movie" id="uncontrolled-tab-example">
@@ -45,7 +60,7 @@ function Home({ dataTrendsMovie, dataTrendsTV, dataLatest }) {
         </Row>
 
 
-        <Row>
+        <Row style={{marginTop:'20px'}}>
           <Col sm={12}>
             <h3>En Yeni Filmler</h3>
           </Col>
@@ -53,6 +68,7 @@ function Home({ dataTrendsMovie, dataTrendsTV, dataLatest }) {
             <Latest data={dataLatest} />
           </Col>
         </Row>
+
       </Container>
 
       <style global jsx>{`
@@ -98,12 +114,17 @@ export async function getServerSideProps({ query }) {
   const resLatest = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=94ec2f0211fe06a3b2bc9827439383d8&language=en-EN&page=1
   `)
   const dataLatest = await resLatest.json();
+
+  const resHighAverage = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=94ec2f0211fe06a3b2bc9827439383d8&language=en-EN&sort_by=primary_release_date.desc&include_adult=false&include_video=false&page=1&vote_count.gte=10&vote_average.gte=6`)
+  const dataHighAverage = await resHighAverage.json();
+
   // Pass data to the page via props
   return {
     props: {
       dataTrendsMovie,
       dataTrendsTV,
-      dataLatest
+      dataLatest,
+      dataHighAverage
     }
   }
 }

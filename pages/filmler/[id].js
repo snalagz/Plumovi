@@ -24,8 +24,7 @@ function movieDetail(props) {
     const similarMovies = props.dataSimilar.results;
     const recomMovies = props.dataRecom.results;
     const addLikeMovies = (movie, year) => {
-        console.log(movie)
-        console.log(year)
+        console.log(movie);
         const uid = localStorage.getItem("uid");
         const db = firebase.firestore();
         var userRef = db.collection("Users").doc(uid);

@@ -28,12 +28,12 @@ function Trends(props) {
                     }
 
 
+                    
                     <Card.Body>
                         <Card.Subtitle>
                             <FaStar /> <Badge variant="danger" style={{ verticalAlign: 'baseline, ' }}>{item.vote_average}</Badge>
                         </Card.Subtitle>
                         {
-
                             <Card.Link href={item.href}>
                                 <Card.Subtitle className="mb-2 text-muted" style={{ marginTop: '3px' }}>{item.title}</Card.Subtitle>
                             </Card.Link>

@@ -23,39 +23,40 @@ function RecomMovie() {
 
     useEffect(() => {
         const uid = localStorage.getItem("uid")
-        const db = firebase.firestore();
-        var userRef = db.collection("Users").doc(uid);
-        userRef.get().then((querySnapshot) => {
-            const userInfo = querySnapshot.data();
-            const likeMovies = userInfo.likeMovies;
-            const last5Movies = likeMovies.slice(Math.max(likeMovies.length - 5, 0));
-            let promiseList = [];
+        setUid(uid);
+        if (uid) {
+            const db = firebase.firestore();
+            var userRef = db.collection("Users").doc(uid);
+            userRef.get().then((querySnapshot) => {
+                const userInfo = querySnapshot.data();
+                const likeMovies = userInfo.likeMovies;
+                const last5Movies = likeMovies.slice(Math.max(likeMovies.length - 5, 0));
+                let promiseList = [];
 
-            last5Movies.forEach(movie => {
-                const movieId = movie.id;
-                promiseList.push(axios.get(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=94ec2f0211fe06a3b2bc9827439383d8&language=tr-TR&page=1`));
-            })
-            console.log(promiseList);
-            const recom = [];
-            Promise.all(promiseList).then((values) => {
-                values.forEach(item => {
-                    const movies = item.data.results;
-                    if (movies.length > 5) movies.splice(5, movies.length);
-                    movies.forEach(movie => {
-                        recom.push(movie)
-                    })
+                last5Movies.forEach(movie => {
+                    const movieId = movie.id;
+                    promiseList.push(axios.get(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=94ec2f0211fe06a3b2bc9827439383d8&language=tr-TR&page=1`));
                 })
-                setRecom(recom);
+                console.log(promiseList);
+                const recom = [];
+                Promise.all(promiseList).then((values) => {
+                    values.forEach(item => {
+                        const movies = item.data.results;
+                        if (movies.length > 5) movies.splice(5, movies.length);
+                        movies.forEach(movie => {
+                            recom.push(movie)
+                        })
+                    })
+                    setRecom(recom);
+                });
             });
-        });
-
-
+        }
     }, []);
 
 
     return (
         <div>
-            <h3>Senin İçin Film Önerilerimiz</h3>
+            { uid && <h3>Senin İçin Film Önerilerimiz</h3> } 
             <div className="tabs">
                 {recom.map(item => (
                     <Card style={{

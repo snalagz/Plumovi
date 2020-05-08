@@ -12,9 +12,10 @@ import firebase from '../src/firebase'
 import Container from 'react-bootstrap/Container'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Store from '../store/store'
+import Link from 'next/link'
 
 function mNavbar() {
-  
+
     const closeAuth = () => {
         localStorage.removeItem("uid");
         location.reload();
@@ -63,12 +64,19 @@ function mNavbar() {
             console.log(error)
         });
     }
+
+
     const [uid, setUid] = useState("");
+    const [movieSearch, setMovieSearhc] = useState("");
+
     useEffect(() => {
         const uid = localStorage.getItem("uid")
         setUid(uid);
     });
 
+    const search = () => {
+        location.replace(`/filmara/${movieSearch}`);
+    }
     /*
         // context değiştiğinde çalışır
         const MyComponent = (props) => {
@@ -86,11 +94,10 @@ function mNavbar() {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link href="/">Anasayfa</Nav.Link>
-                    <Nav.Link href="#link">Link</Nav.Link>
                     {
                         uid ? [
                             <NavDropdown title="Profil" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.1">İzlediklerim</NavDropdown.Item>
+                                <NavDropdown.Item href="/begendigim-filmler">İzlediklerim</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item onClick={() => closeAuth()}>Çıkış Yap</NavDropdown.Item>
                             </NavDropdown>
@@ -106,8 +113,9 @@ function mNavbar() {
 
                 </Nav>
                 <Form inline>
-                    <FormControl type="text" placeholder="Örn: Yüzüklerin Efendisi" className="mr-sm-2" />
-                    <Button variant="danger">Ara</Button>
+                    <FormControl type="text" placeholder="Örn: Yüzüklerin Efendisi" className="mr-sm-2"
+                        value={movieSearch} onChange={(event) => setMovieSearhc(event.target.value)} />
+                    <Button variant="danger" onClick={() => search()}>Ara</Button>
                 </Form>
             </Navbar.Collapse>
         </Navbar>
