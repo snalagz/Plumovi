@@ -6,6 +6,7 @@ import RecomMovie from '../components/recomMovie'
 import Latest from '../components/latest'
 import HighAverage from '../components/highAverage'
 import Navbar from '../components/navbar'
+import Footer from '../components/footer'
 import Store from '../store/store'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button'
@@ -16,25 +17,26 @@ import Col from 'react-bootstrap/Col'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Jumbotron from 'react-bootstrap/Jumbotron'
-
+import Form from 'react-bootstrap/Form'
 function Home({ dataTrendsMovie, dataTrendsTV, dataLatest, dataHighAverage }) {
   return (
     <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
       <Head>
         <meta name="google-site-verification" content="EB6N44R3eqxnPIqxzebt3_LK21zeObwvEvi1oWihjdY" />
         <title>Film ve Dizi Öneri Platformu</title>
+        <meta name="description" content="Filmer hakkında bilgi al, beğendiğin filmleri ve dizileri seç film önerilerini al." />
       </Head>
       <Navbar />
 
+
       <Container>
-        
-        <Row style={{marginTop:'20px'}}>
+        <Row style={{ marginTop: '20px' }}>
           <Col>
             <RecomMovie />
           </Col>
         </Row>
 
-        <Row style={{marginTop:'20px'}}>
+        <Row style={{ marginTop: '20px' }}>
           <Col sm={12}>
             <h3>Yakın Tarihli Yüksek Puanlı Film Önerileri</h3>
           </Col>
@@ -43,7 +45,7 @@ function Home({ dataTrendsMovie, dataTrendsTV, dataLatest, dataHighAverage }) {
           </Col>
         </Row>
 
-        <Row style={{marginTop:'20px'}}>
+        <Row style={{ marginTop: '20px' }}>
           <Col sm={12}>
             <h3>Bugünün En Popüler Film Önerileri</h3>
           </Col>
@@ -60,7 +62,7 @@ function Home({ dataTrendsMovie, dataTrendsTV, dataLatest, dataHighAverage }) {
         </Row>
 
 
-        <Row style={{marginTop:'20px'}}>
+        <Row style={{ marginTop: '20px' }}>
           <Col sm={12}>
             <h3>En Yeni Filmler</h3>
           </Col>
@@ -69,6 +71,8 @@ function Home({ dataTrendsMovie, dataTrendsTV, dataLatest, dataHighAverage }) {
           </Col>
         </Row>
 
+
+        <Footer />
       </Container>
 
       <style global jsx>{`
@@ -115,7 +119,7 @@ export async function getServerSideProps({ query }) {
   `)
   const dataLatest = await resLatest.json();
 
-  const resHighAverage = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=94ec2f0211fe06a3b2bc9827439383d8&language=en-EN&sort_by=primary_release_date.desc&include_adult=false&include_video=false&page=1&vote_count.gte=10&vote_average.gte=6`)
+  const resHighAverage = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=94ec2f0211fe06a3b2bc9827439383d8&language=en-EN&sort_by=primary_release_date.desc&include_adult=false&include_video=false&page=1&vote_count.gte=5&vote_average.gte=6`)
   const dataHighAverage = await resHighAverage.json();
 
   // Pass data to the page via props

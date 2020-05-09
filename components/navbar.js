@@ -97,7 +97,7 @@ function mNavbar() {
                     {
                         uid ? [
                             <NavDropdown title="Profil" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="/begendigim-filmler">İzlediklerim</NavDropdown.Item>
+                                <NavDropdown.Item href="/begendigim-filmler">Beğendiğim Filmler</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item onClick={() => closeAuth()}>Çıkış Yap</NavDropdown.Item>
                             </NavDropdown>

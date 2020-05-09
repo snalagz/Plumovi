@@ -16,37 +16,48 @@ import Container from 'react-bootstrap/Container'
 import { FaHeart } from 'react-icons/fa'
 import { FaBookmark } from 'react-icons/fa'
 import firebase from '../../src/firebase'
+import { useRouter } from 'next/router'
 
 function movieDetail(props) {
+    const router = useRouter()
+    const { id } = router.query;
     const movie = props.dataInfo;
     const video = props.dataVideo.results;
+    console.log(video);
     const year = (movie.release_date).split("-")[0];
     const similarMovies = props.dataSimilar.results;
     const recomMovies = props.dataRecom.results;
-    const addLikeMovies = (movie, year) => {
-        console.log(movie);
+
+    const addLikeMovies = (movie, year, id) => {
+        console.log(id);
+        id = "/filmler/" + id;
+        console.log(id);
         const uid = localStorage.getItem("uid");
         const db = firebase.firestore();
         var userRef = db.collection("Users").doc(uid);
+        let poster = movie.poster_path;
+        poster = poster.replace("http://image.tmdb.org/t/p/w185", "")
         userRef.get().then((querySnapshot) => {
             const userInfo = querySnapshot.data();
             const likedMoive = {
                 id: movie.id,
                 name: movie.title,
-                photo: movie.poster_path,
+                link: id,
+                photo: poster,
                 year: year,
             }
             let exist = false;
-            userInfo.likeMovies.forEach( (item,key) => {
-                if(item.id == likedMoive.id){
+            userInfo.likeMovies.forEach((item, key) => {
+                if (item.id == likedMoive.id) {
                     exist = true;
                 }
             })
-            if(!exist){
+            if (!exist) {
+                console.log(userInfo.likeMovies);
                 userInfo.likeMovies.push(likedMoive)
                 userRef.update({
-                    "likeMovies": userInfo.likeMovies, 
-                }).then(function() {
+                    "likeMovies": userInfo.likeMovies,
+                }).then(function () {
                     alert("Film Kayıt Edili")
                 });
             } else {
@@ -57,115 +68,118 @@ function movieDetail(props) {
     return (
         <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
             <Navbar />
-        <div className="mainContainer">
-            <Head>
-                <title>{movie.title} ({year}) Filmi - Plumovi.com</title>
-                <meta property="og:title" content={movie.title + " (" + year + ") " + "Filmi - Plumovi.com"} key="title" />
-                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-                <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&family=Roboto&display=swap" rel="stylesheet" />
-            </Head>
-            
-            <div className="left">
+            <div className="mainContainer">
+                <Head>
+                    <title>{movie.title} ({year}) Filmi - Filmtadi.com</title>
+                    <meta property="og:title" content={movie.title + " (" + year + ") " + "Filmi - Plumovi.com"} key="title" />
+                    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+                    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&family=Roboto&display=swap" rel="stylesheet" />
+                </Head>
 
-            </div>
-            <div className="center">
-                <div className="centerLeft">
-                    <div class="title">
-                        <h1>{movie.original_title}: {movie.title}</h1>
-                    </div>
-                    <div className="fragman">
+                <div className="left">
+
+                </div>
+                <div className="center">
+                    <div className="centerLeft">
+                        <div class="title">
+                            <h1>{movie.original_title}: {movie.title}</h1>
+                        </div>
                         {
-                            video[0].key = `https://www.youtube.com/embed/${video[0].key}`,
-                            <iframe height="315" src={video[0].key}
-                                frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            video.length > 0 && [
+                                <div className="fragman">
+                                    {
+                                        video[0].key = `https://www.youtube.com/embed/${video[0].key}`,
+                                        <iframe height="315" src={video[0].key}
+                                            frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    }
+                                </div>
+                            ]
                         }
-
-                    </div>
-                    <div className="topMovieCard">
-                        <div className="contentCard">
-                            <div className="contentCardLeft">
-                                {
-                                    movie.poster_path = "http://image.tmdb.org/t/p/w185" + movie.poster_path,
-                                    <Image src={movie.poster_path} rounded width="100%" />
-                                }
-                            </div>
-                            <div className="contentCardRight">
-                                {movie.genres.map(genre => (
-                                    <Link href="/movie">
-                                        <Badge pill variant="danger" style={{ marginLeft: '2px' }}>{genre.name}</Badge>
-                                    </Link>
-                                ))}
-                                <div>
-                                    <span className="infoSpan">Vizyon Tarihi: </span><span>{movie.release_date}</span>
+                        <div className="topMovieCard">
+                            <div className="contentCard">
+                                <div className="contentCardLeft">
+                                    {
+                                        movie.poster_path = "http://image.tmdb.org/t/p/w185" + movie.poster_path,
+                                        <Image src={movie.poster_path} rounded width="100%" />
+                                    }
                                 </div>
-                                <div>
-                                    <span className="infoSpan">Ortalama Puan: </span><span>{movie.vote_average}</span>
-                                </div>
-                                <div>
-                                    <span className="infoSpan">Bütçe: </span>
-                                    <CurrencyFormat value={movie.budget} displayType={'text'} thousandSeparator={true} prefix={'$'} renderText={value => <span>{value}</span>} />
-                                </div>
-                                <div>
-                                    <span className="infoSpan">Gelir: </span>
-                                    <CurrencyFormat value={movie.revenue} displayType={'text'} thousandSeparator={true} prefix={'$'} renderText={value => <span>{value}</span>} />
-                                </div>
-                                <div>
-                                    <span className="infoSpan">Yıl:</span> <span>{year}</span>
-                                </div>
-                                <div style={{marginTop:'4px'}}>
-                                    <Button variant="warning" size="sm" onClick={() => addLikeMovies(movie, year)}> <FaHeart /> Sevdim</Button>
-                                    <Button variant="warning" size="sm" onClick={() => alert("Yapım Aşaması")} style={{marginLeft:'3px'}}> 
-                                        <FaBookmark /> Listeye Ekle
+                                <div className="contentCardRight">
+                                    {movie.genres.map(genre => (
+                                        <Link href="/movie">
+                                            <Badge pill variant="danger" style={{ marginLeft: '2px' }}>{genre.name}</Badge>
+                                        </Link>
+                                    ))}
+                                    <div>
+                                        <span className="infoSpan">Vizyon Tarihi: </span><span>{movie.release_date}</span>
+                                    </div>
+                                    <div>
+                                        <span className="infoSpan">Ortalama Puan: </span><span>{movie.vote_average}</span>
+                                    </div>
+                                    <div>
+                                        <span className="infoSpan">Bütçe: </span>
+                                        <CurrencyFormat value={movie.budget} displayType={'text'} thousandSeparator={true} prefix={'$'} renderText={value => <span>{value}</span>} />
+                                    </div>
+                                    <div>
+                                        <span className="infoSpan">Gelir: </span>
+                                        <CurrencyFormat value={movie.revenue} displayType={'text'} thousandSeparator={true} prefix={'$'} renderText={value => <span>{value}</span>} />
+                                    </div>
+                                    <div>
+                                        <span className="infoSpan">Yıl:</span> <span>{year}</span>
+                                    </div>
+                                    <div style={{ marginTop: '4px' }}>
+                                        <Button variant="warning" size="sm" onClick={() => addLikeMovies(movie, year, id)}> <FaHeart /> Sevdim</Button>
+                                        <Button variant="warning" size="sm" onClick={() => alert("Yapım Aşaması")} style={{ marginLeft: '3px' }}>
+                                            <FaBookmark /> Listeye Ekle
                                     </Button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div className="overView">
+                            <h2>{movie.title} ({year}) Filmi Konusu</h2>
+                            <p>{movie.overview}</p>
+                        </div>
+                        <h3>Bu Filmi Sevdiysen, Şu Filmler Öneriyoruz</h3>
+                        {recomMovies.map(movie => (
+                            <Card style={{
+                                width: '150px',
+                                height: 'auto', whiteSpace: 'pre-wrap',
+                                display: 'inline-block', verticalAlign: 'top', border: 'none',
+                                marginRight: '10px', overflow: 'hidden',
+                                backgroundColor: '#1a1a1a'
+                            }}>
+                                {
+                                    movie.poster_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movie.poster_path,
+                                    movie.href = `/filmler/${movie.title.split(' ').join('-')}-${movie.id}`,
+                                    <Card.Link href={movie.href}>
+                                        <Card.Img rounded variant="top" src={movie.poster_path} style={{ objectFit: 'fill' }} />
+                                    </Card.Link>
+                                }
+
+
+                                <Card.Body>
+
+
+                                    <Card.Link href={movie.href}>
+                                        <Card.Subtitle className="mb-2 text-muted" style={{ marginTop: '3px' }}>{movie.title}</Card.Subtitle>
+                                    </Card.Link>
+                                </Card.Body>
+
+
+                            </Card>
+                        ))}
                     </div>
-                    <div className="overView">
-                        <h2>{movie.title} ({year}) Filmi Konusu</h2>
-                        <p>{movie.overview}</p>
+                    <div className="centerRight">
+
                     </div>
-                    <h3>Bu Filmi Sevdiysen, Şu Filmler Öneriyoruz</h3>
-                    {recomMovies.map(movie => (
-                        <Card style={{
-                            width: '150px',
-                            height: 'auto', whiteSpace: 'pre-wrap',
-                            display: 'inline-block', verticalAlign: 'top', border: 'none',
-                            marginRight: '10px', overflow: 'hidden',
-                            backgroundColor:'#1a1a1a'
-                        }}>
-                            {
-                                movie.poster_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movie.poster_path,
-                                movie.href = `/filmler/${movie.title.split(' ').join('-')}-${movie.id}`,
-                                <Card.Link href={movie.href}>
-                                    <Card.Img rounded variant="top" src={movie.poster_path} style={{ objectFit: 'fill' }} />
-                                </Card.Link>
-                            }
-
-
-                            <Card.Body>
-
-
-                                <Card.Link href={movie.href}>
-                                    <Card.Subtitle className="mb-2 text-muted" style={{ marginTop: '3px' }}>{movie.title}</Card.Subtitle>
-                                </Card.Link>
-                            </Card.Body>
-
-
-                        </Card>
-                    ))}
                 </div>
-                <div className="centerRight">
-                    
+                <div className="right">
+
                 </div>
-            </div>
-            <div className="right">
-
-            </div>
 
 
-            <style global jsx>{`
+                <style global jsx>{`
                 body{
                     margin:0px; 
                     padding:0px;
@@ -267,14 +281,14 @@ function movieDetail(props) {
                     }
                 }
             `}
-            </style>
-            <style global jsx>{`
+                </style>
+                <style global jsx>{`
                 body {
                  
                 }
             `}
-            </style>
-        </div>
+                </style>
+            </div>
         </Container>
     )
 }
@@ -299,8 +313,8 @@ export async function getServerSideProps({ query }) {
         .then(res => {
             dataRecom = res.data;
         })
-    
-    
+
+
     return {
         props: { dataInfo, dataVideo, dataSimilar, dataRecom }, // will be passed to the page component as props
     }
