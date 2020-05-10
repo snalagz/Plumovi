@@ -18,7 +18,7 @@ function Footer() {
     return (
         <div className="mainContainer">
             <p>
-                Plumovi siz değerli kullanıcılarına film ve dizi önerileri sunmak amacıyla oluşturulmuş bir platformdur.
+                <a href="http://filmbul.org">Filmbul.org</a> siz değerli kullanıcılarına film ve dizi önerileri sunmak amacıyla oluşturulmuş bir platformdur.
             </p>
 
             <style global jsx>{`

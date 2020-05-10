@@ -22,7 +22,7 @@ function RecomMovie() {
     const [recom, setRecom] = useState([]);
 
     useEffect(() => {
-        const uid = localStorage.getItem("uid")
+        const uid = localStorage.getItem("filmbulUid")
         setUid(uid);
         if (uid) {
             const db = firebase.firestore();

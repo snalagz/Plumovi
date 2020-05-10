@@ -22,7 +22,7 @@ function Home({ dataTrendsMovie, dataTrendsTV, dataLatest, dataHighAverage }) {
   return (
     <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
       <Head>
-        <meta name="google-site-verification" content="EB6N44R3eqxnPIqxzebt3_LK21zeObwvEvi1oWihjdY" />
+        <meta name="google-site-verification" content="wQGqWQ4Kp2Hf8aDMKA8sz6onsTDa7oHoaRc6vkdU_io" />
         <title>Film ve Dizi Öneri Platformu</title>
         <meta name="description" content="Filmer hakkında bilgi al, beğendiğin filmleri ve dizileri seç film önerilerini al." />
       </Head>

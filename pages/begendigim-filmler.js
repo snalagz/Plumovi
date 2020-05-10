@@ -11,7 +11,7 @@ function likeMovies(props) {
     const [uid, setUid] = useState("");
     const [likedMovie, setLikedMovie] = useState([]);
     useEffect(() => {
-        const uid = localStorage.getItem("uid")
+        const uid = localStorage.getItem("filmbulUid")
         setUid(uid);
 
         const db = firebase.firestore();

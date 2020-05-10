@@ -17,7 +17,7 @@ import Link from 'next/link'
 function mNavbar() {
 
     const closeAuth = () => {
-        localStorage.removeItem("uid");
+        localStorage.removeItem("filmbulUid");
         location.reload();
     }
     const auth = () => {
@@ -33,7 +33,7 @@ function mNavbar() {
 
             docRef.get().then(function (doc) {
                 if (doc.exists) {
-                    localStorage.setItem("uid", uid);
+                    localStorage.setItem("filmbulUid", uid);
                     location.reload();
                 } else {
                     db.collection("Users").doc(uid).set({
@@ -45,7 +45,7 @@ function mNavbar() {
                     })
                         .then(function () {
                             console.log("Document successfully written!");
-                            localStorage.setItem("uid", uid);
+                            localStorage.setItem("filmbulUid", uid);
                             location.reload();
                         })
                         .catch(function (error) {
@@ -70,7 +70,7 @@ function mNavbar() {
     const [movieSearch, setMovieSearhc] = useState("");
 
     useEffect(() => {
-        const uid = localStorage.getItem("uid")
+        const uid = localStorage.getItem("filmbulUid")
         setUid(uid);
     });
 
@@ -102,8 +102,8 @@ function mNavbar() {
                                 <NavDropdown.Item onClick={() => closeAuth()}>Çıkış Yap</NavDropdown.Item>
                             </NavDropdown>
                         ] : [
-                                <Button variant="danger" style={{ marginLeft: '3px' }} onClick={() => auth()}>
-                                    <FaGoogle /> Giriş Yap
+                            <Button variant="danger" style={{ marginLeft: '3px' }} onClick={() => auth()}>
+                                <FaGoogle /> Giriş Yap
                             </Button>
                             ]
                     }
@@ -115,7 +115,7 @@ function mNavbar() {
                 <Form inline>
                     <FormControl type="text" placeholder="Örn: Yüzüklerin Efendisi" className="mr-sm-2"
                         value={movieSearch} onChange={(event) => setMovieSearhc(event.target.value)} />
-                    <Button variant="danger" onClick={() => search()}>Ara</Button>
+                    <Button variant="danger" onClick={() => search()} style={{marginTop:'2px;'}}>Ara</Button>
                 </Form>
             </Navbar.Collapse>
         </Navbar>

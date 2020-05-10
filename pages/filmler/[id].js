@@ -23,7 +23,6 @@ function movieDetail(props) {
     const { id } = router.query;
     const movie = props.dataInfo;
     const video = props.dataVideo.results;
-    console.log(video);
     const year = (movie.release_date).split("-")[0];
     const similarMovies = props.dataSimilar.results;
     const recomMovies = props.dataRecom.results;
@@ -141,34 +140,36 @@ function movieDetail(props) {
                             <p>{movie.overview}</p>
                         </div>
                         <h3>Bu Filmi Sevdiysen, Şu Filmler Öneriyoruz</h3>
-                        {recomMovies.map(movie => (
-                            <Card style={{
-                                width: '150px',
-                                height: 'auto', whiteSpace: 'pre-wrap',
-                                display: 'inline-block', verticalAlign: 'top', border: 'none',
-                                marginRight: '10px', overflow: 'hidden',
-                                backgroundColor: '#1a1a1a'
-                            }}>
-                                {
-                                    movie.poster_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movie.poster_path,
-                                    movie.href = `/filmler/${movie.title.split(' ').join('-')}-${movie.id}`,
-                                    <Card.Link href={movie.href}>
-                                        <Card.Img rounded variant="top" src={movie.poster_path} style={{ objectFit: 'fill' }} />
-                                    </Card.Link>
-                                }
+                        <div className="recomMovies">
+                            {recomMovies.map(movie => (
+                                <Card style={{
+                                    width: '150px',
+                                    height: 'auto', whiteSpace: 'pre-wrap',
+                                    display: 'inline-block', verticalAlign: 'top', border: 'none',
+                                    marginRight: '10px', overflow: 'hidden',
+                                    backgroundColor: '#1a1a1a'
+                                }}>
+                                    {
+                                        movie.poster_path = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movie.poster_path,
+                                        movie.href = `/filmler/${movie.title.split(' ').join('-')}-${movie.id}`,
+                                        <Card.Link href={movie.href}>
+                                            <Card.Img rounded variant="top" src={movie.poster_path} style={{ objectFit: 'fill' }} />
+                                        </Card.Link>
+                                    }
 
 
-                                <Card.Body>
+                                    <Card.Body>
 
 
-                                    <Card.Link href={movie.href}>
-                                        <Card.Subtitle className="mb-2 text-muted" style={{ marginTop: '3px' }}>{movie.title}</Card.Subtitle>
-                                    </Card.Link>
-                                </Card.Body>
+                                        <Card.Link href={movie.href}>
+                                            <Card.Subtitle className="mb-2 text-muted" style={{ marginTop: '3px' }}>{movie.title}</Card.Subtitle>
+                                        </Card.Link>
+                                    </Card.Body>
 
 
-                            </Card>
-                        ))}
+                                </Card>
+                            ))}
+                        </div>
                     </div>
                     <div className="centerRight">
 
@@ -260,6 +261,10 @@ function movieDetail(props) {
                 .infoSpan{
                     font-weight: bold;
                     font-family: 'Roboto'
+                }
+
+                .recomMovies{
+                    text-align: center;
                 }
                 @media only screen and (max-width: 600px) {
                     .left {
