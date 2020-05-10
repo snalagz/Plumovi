@@ -19,6 +19,7 @@ function Footer() {
         <div className="mainContainer">
             <p>
                 <a href="http://filmbul.org">Filmbul.org</a> siz değerli kullanıcılarına film ve dizi önerileri sunmak amacıyla oluşturulmuş bir platformdur.
+                Sitemizde yer alan veriler veri kaynağımız olan <a href="https://www.themoviedb.org/">themoviedb.org</a> aracılığı ile alınmaktadır.
             </p>
 
             <style global jsx>{`
