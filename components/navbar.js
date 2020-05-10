@@ -89,7 +89,7 @@ function mNavbar() {
     */
     return (
         <Navbar variant="dark" expand="lg" style={{ backgroundColor: '#121212' }}>
-            <Navbar.Brand href="/">Plumovi</Navbar.Brand>
+            <Navbar.Brand href="/">Filmbul</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
