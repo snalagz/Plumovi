@@ -69,7 +69,7 @@ function movieDetail(props) {
             <Navbar />
             <div className="mainContainer">
                 <Head>
-                    <title>{movie.title} ({year}) Filmi - Filmtadi.com</title>
+                    <title>{movie.title} ({year}) Filmi - Filmbul.org</title>
                     <meta property="og:title" content={movie.title + " (" + year + ") " + "Filmi - Plumovi.com"} key="title" />
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&family=Roboto&display=swap" rel="stylesheet" />
@@ -139,7 +139,7 @@ function movieDetail(props) {
                             <h2>{movie.title} ({year}) Filmi Konusu</h2>
                             <p>{movie.overview}</p>
                         </div>
-                        <h3>Bu Filmi Sevdiysen, Şu Filmler Öneriyoruz</h3>
+                        <h3>Bu Filmi Sevdiysen, Şu Filmleri Öneriyoruz</h3>
                         <div className="recomMovies">
                             {recomMovies.map(movie => (
                                 <Card style={{
