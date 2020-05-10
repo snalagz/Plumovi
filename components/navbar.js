@@ -102,12 +102,31 @@ function mNavbar() {
                                 <NavDropdown.Item onClick={() => closeAuth()}>Çıkış Yap</NavDropdown.Item>
                             </NavDropdown>
                         ] : [
-                            <Button variant="danger" style={{ marginLeft: '3px' }} onClick={() => auth()}>
-                                <FaGoogle /> Giriş Yap
+                                <Button variant="danger" style={{ marginLeft: '3px' }} onClick={() => auth()}>
+                                    <FaGoogle /> Giriş Yap
                             </Button>
                             ]
                     }
-
+                    <NavDropdown title="Kategoriler" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="/filmler/kategori/aksiyon-filmleri/1">Aksiyon</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/macera-filmleri/1">Macera</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/animasyon-filmleri/1">Animasyon</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/komedi-filmleri/1">Komedi</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/suc-filmleri/1">Suç</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/belgesel-filmleri/1">Belgesel</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/dram-filmleri/1">Dram</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/aile-filmleri/1">Aile</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/fantastik-filmleri/1">Fantastik</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/tarih-filmleri/1">Tarih</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/korku-filmleri/1">Korku</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/müzik-filmleri/1">Müzik</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/gizem-filmleri/1">Gizem</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/romantik-filmler/1">Romantik</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/bilim-kurgu-filmleri/1">Bilim Kurgu</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/gerilim-filmleri/1">Gerilim</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/tarih-filmleri/1">Tarih</NavDropdown.Item>
+                        <NavDropdown.Item href="/filmler/kategori/vahsi-bati-filmleri/1">Vahşi Batı</NavDropdown.Item>
+                    </NavDropdown>
 
 
 
@@ -115,7 +134,7 @@ function mNavbar() {
                 <Form inline>
                     <FormControl type="text" placeholder="Örn: Yüzüklerin Efendisi" className="mr-sm-2"
                         value={movieSearch} onChange={(event) => setMovieSearhc(event.target.value)} />
-                    <Button variant="danger" onClick={() => search()} style={{marginTop:'2px;'}}>Ara</Button>
+                    <Button variant="danger" onClick={() => search()} style={{ marginTop: '2px;' }}>Ara</Button>
                 </Form>
             </Navbar.Collapse>
         </Navbar>
