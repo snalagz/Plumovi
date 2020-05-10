@@ -119,6 +119,8 @@ const Category = (props) => {
                 }
                 h1{
                   color:#ffffff;
+                  padding-left:10px;
+                  padding-right:10px;
                 }
             `}
       </style>
