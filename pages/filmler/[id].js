@@ -28,41 +28,44 @@ function movieDetail(props) {
     const recomMovies = props.dataRecom.results;
 
     const addLikeMovies = (movie, year, id) => {
-        console.log(id);
         id = "/filmler/" + id;
-        console.log(id);
-        const uid = localStorage.getItem("uid");
-        const db = firebase.firestore();
-        var userRef = db.collection("Users").doc(uid);
-        let poster = movie.poster_path;
-        poster = poster.replace("http://image.tmdb.org/t/p/w185", "")
-        userRef.get().then((querySnapshot) => {
-            const userInfo = querySnapshot.data();
-            const likedMoive = {
-                id: movie.id,
-                name: movie.title,
-                link: id,
-                photo: poster,
-                year: year,
-            }
-            let exist = false;
-            userInfo.likeMovies.forEach((item, key) => {
-                if (item.id == likedMoive.id) {
-                    exist = true;
+        const uid = localStorage.getItem("filmbulUid");
+        if (uid) {
+            const db = firebase.firestore();
+            var userRef = db.collection("Users").doc(uid);
+            let poster = movie.poster_path;
+            poster = poster.replace("http://image.tmdb.org/t/p/w185", "")
+            userRef.get().then((querySnapshot) => {
+                const userInfo = querySnapshot.data();
+                const likedMoive = {
+                    id: movie.id,
+                    name: movie.title,
+                    link: id,
+                    photo: poster,
+                    year: year,
                 }
-            })
-            if (!exist) {
-                console.log(userInfo.likeMovies);
-                userInfo.likeMovies.push(likedMoive)
-                userRef.update({
-                    "likeMovies": userInfo.likeMovies,
-                }).then(function () {
-                    alert("Film Kayıt Edili")
-                });
-            } else {
-                alert("Film Daha Önce Kayıt Edilmiş")
-            }
-        });
+                let exist = false;
+                userInfo.likeMovies.forEach((item, key) => {
+                    if (item.id == likedMoive.id) {
+                        exist = true;
+                    }
+                })
+                if (!exist) {
+                    console.log(userInfo.likeMovies);
+                    userInfo.likeMovies.push(likedMoive)
+                    userRef.update({
+                        "likeMovies": userInfo.likeMovies,
+                    }).then(function () {
+                        alert("Film Kayıt Edili")
+                    });
+                } else {
+                    alert("Film Daha Önce Kayıt Edilmiş")
+                }
+            });
+        } else {
+            alert("Lütfen Giriş Yapınız.")
+        }
+
     }
     return (
         <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>

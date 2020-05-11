@@ -24,7 +24,8 @@ function Home({ dataTrendsMovie, dataTrendsTV, dataLatest, dataHighAverage }) {
       <Head>
         <meta name="google-site-verification" content="wQGqWQ4Kp2Hf8aDMKA8sz6onsTDa7oHoaRc6vkdU_io" />
         <title>Film ve Dizi Öneri Platformu</title>
-        <meta name="description" content="Filmbul.org - En güncel film önerileri, fragmanlar, film bilgileri. Beğendiğin filmleri seç izlemen sana özel film önerilerini al !" />
+        <meta name="description" content="Filmbul.org - En güncel film önerileri, fragmanlar, 
+        film bilgileri. Beğendiğin filmleri seç izlemen sana özel film önerilerini al !" />
       </Head>
       <Navbar />
 
@@ -49,15 +50,8 @@ function Home({ dataTrendsMovie, dataTrendsTV, dataLatest, dataHighAverage }) {
           <Col sm={12}>
             <h3>Bugünün En Popüler Film Önerileri</h3>
           </Col>
-          <Col sm={12}>
-            <Tabs defaultActiveKey="movie" id="uncontrolled-tab-example">
-              <Tab className="reactTabs" eventKey="movie" title="Filmler" >
-                <TrendsMovie dataMovies={dataTrendsMovie} />
-              </Tab>
-              <Tab eventKey="tvSeries" title="Diziler">
-                <TrendsTV dataMovies={dataTrendsTV} />
-              </Tab>
-            </Tabs>
+          <Col sm={12}> 
+            <TrendsMovie dataMovies={dataTrendsMovie} />
           </Col>
         </Row>
 

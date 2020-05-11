@@ -9,6 +9,7 @@ import Card from 'react-bootstrap/Card'
 import Badge from 'react-bootstrap/Badge'
 import Navbar from '../../../../components/navbar'
 import Footer from '../../../../components/footer'
+import Head from 'next/head'
 
 const Category = (props) => {
   const router = useRouter()
@@ -33,13 +34,26 @@ const Category = (props) => {
     }
   }
 
+  let title = "";
+  categoryName.split("-").join(" ").split(" ").forEach(item => {
+    const tmp = item.charAt(0).toUpperCase() + item.slice(1);
+    title += tmp + " "; 
+  })
+  title = title + "- Filmbul.org"
+  
   return (
     <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
+      <Head>
+        <meta name="google-site-verification" content="wQGqWQ4Kp2Hf8aDMKA8sz6onsTDa7oHoaRc6vkdU_io" />
+        <title>{title}</title>
+        <meta name="description" content="Filmbul.org - En güncel film önerileri, fragmanlar, film bilgileri. Beğendiğin filmleri seç izlemen sana özel film önerilerini al !" />
+      </Head>
+
       <Navbar />
 
       <Container>
         <Row>
-            <h1>{categoryName.replace("-"," ")} filmleri</h1>
+            <h1>{categoryName.replace("-"," ")}</h1>
         </Row>
         <Row style={{display:'flex', justifyContent: 'center'}}>
           {movieData.results.map(item => (
