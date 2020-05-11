@@ -44,7 +44,7 @@ function searchMovie(props) {
                                 {
                                     item.poster_path = "http://image.tmdb.org/t/p/w185" + item.poster_path,
                                     item.href = `/filmler/${item.title.split(' ').join('-')}-${item.id}`,
-                                    <Card.Link href={item.href}>
+                                    <Card.Link href={item.href.toLowerCase()}>
                                         <Card.Img rounded variant="top" src={item.poster_path} style={{ objectFit: 'fill' }} />
                                     </Card.Link>
                                 }
@@ -56,7 +56,7 @@ function searchMovie(props) {
                                         <FaStar /> <Badge variant="danger" style={{ verticalAlign: 'baseline, ' }}>{item.vote_average}</Badge>
                                     </Card.Subtitle>
                                     {
-                                        <Card.Link href={item.href}>
+                                        <Card.Link href={item.href.toLowerCase()}>
                                             <Card.Subtitle className="mb-2 text-muted" style={{ marginTop: '3px' }}>{item.title}</Card.Subtitle>
                                         </Card.Link>
                                     }

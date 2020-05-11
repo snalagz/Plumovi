@@ -45,7 +45,7 @@ function likeMovies(props) {
                                 backgroundColor: '#1a1a1a'
                             }}>
                                 {
-                                    <Card.Link href={item.link}>
+                                    <Card.Link href={item.link.toLowerCase()}>
                                         <Card.Img rounded variant="top" src={item.photo} style={{ objectFit: 'fill' }} />
                                     </Card.Link>
                                 }
@@ -57,7 +57,7 @@ function likeMovies(props) {
                                         <FaStar /> <Badge variant="danger" style={{ verticalAlign: 'baseline, ' }}>{item.year}</Badge>
                                     </Card.Subtitle>
                                     {
-                                        <Card.Link href={item.link}>
+                                        <Card.Link href={item.link.toLowerCase()}>
                                             <Card.Subtitle className="mb-2 text-muted" style={{ marginTop: '3px' }}>{item.name}</Card.Subtitle>
                                         </Card.Link>
                                     }

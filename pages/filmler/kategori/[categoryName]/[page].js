@@ -10,7 +10,7 @@ import Badge from 'react-bootstrap/Badge'
 import Navbar from '../../../../components/navbar'
 import Footer from '../../../../components/footer'
 import Head from 'next/head'
-
+import { FaStar } from 'react-icons/fa'
 const Category = (props) => {
   const router = useRouter()
   const categoryName = router.query.categoryName
@@ -37,10 +37,10 @@ const Category = (props) => {
   let title = "";
   categoryName.split("-").join(" ").split(" ").forEach(item => {
     const tmp = item.charAt(0).toUpperCase() + item.slice(1);
-    title += tmp + " "; 
+    title += tmp + " ";
   })
   title = title + "- Filmbul.org"
-  
+
   return (
     <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
       <Head>
@@ -53,9 +53,9 @@ const Category = (props) => {
 
       <Container>
         <Row>
-            <h1>{categoryName.replace("-"," ")}</h1>
+          <h1>{categoryName.split("-").join(" ")}</h1>
         </Row>
-        <Row style={{display:'flex', justifyContent: 'center'}}>
+        <Row style={{ display: 'flex', justifyContent: 'center' }}>
           {movieData.results.map(item => (
             <Card style={{
               width: '150px',
@@ -66,17 +66,19 @@ const Category = (props) => {
               marginTop: '10px'
             }}>
               {
-                <Card.Link href={item.href}>
+                <Card.Link href={`/filmler/${item.original_title.split(' ').join('-').toLowerCase()}-${item.id}`}>
                   <Card.Img rounded variant="top" src={`http://image.tmdb.org/t/p/w185${item.poster_path}`} style={{ objectFit: 'fill' }} />
                 </Card.Link>
               }
 
 
               <Card.Body>
+                <Card.Subtitle style={{marginBottom: '2px'}}>
+                  <Badge variant="danger" style={{ verticalAlign: 'baseline' }}>  {item.vote_average} Ort</Badge>  <Badge variant="primary" style={{ verticalAlign: 'baseline' }}> {item.vote_count} Oy</Badge>
+                </Card.Subtitle>
                 {
-
-                  <Card.Link href={`/filmler/${item.original_title.split(' ').join('-')}-${item.id}`}>
-                    <Card.Subtitle className="mb-2 text-muted">{item.title}</Card.Subtitle>
+                  <Card.Link href={`/filmler/${item.original_title.split(' ').join('-').toLowerCase()}-${item.id}`}>
+                    <Card.Subtitle className="mb-2 text-muted" style={{ marginTop: '3px' }}>{item.title} </Card.Subtitle>
                   </Card.Link>
                 }
               </Card.Body>
@@ -86,7 +88,7 @@ const Category = (props) => {
           ))}
         </Row>
         <Row style={{ marginTop: '15px', marginBottom: '10px' }}>
-          <Pagination style={{margin: 'auto' }} className="pagination">
+          <Pagination style={{ margin: 'auto' }} className="pagination">
             <Pagination.Item>
               <Link href={`/filmler/kategori/${categoryName}/1`}>
                 <a>1</a>
@@ -182,8 +184,8 @@ export async function getServerSideProps({ query }) {
     categoryId = "10752";
   } else if (categoryName == "vahsi") {
     categoryId = "37";
-  } 
- 
+  }
+
   const dateObj = new Date();
   let month = dateObj.getUTCMonth() + 1;
   let day = dateObj.getUTCDate();
@@ -193,7 +195,8 @@ export async function getServerSideProps({ query }) {
   const today = `${year}-${month}-${day}`;
 
   const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=94ec2f0211fe06a3b2bc9827439383d8&
-  language=tr-TR&sort_by=primary_release_date.desc&include_adult=false&include_video=false&page=${page}&release_date.lte=${today}&with_genres=${categoryId}`)
+  language=tr-TR&sort_by=primary_release_date.desc&include_adult=false&include_video=false&page=${page}
+  &release_date.lte=${today}&with_genres=${categoryId}&vote_count.gte=40`)
   const data = await res.json()
 
   return {
