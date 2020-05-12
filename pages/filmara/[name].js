@@ -26,7 +26,7 @@ function searchMovie(props) {
             <Navbar />
             <Container>
                 <Head>
-                    <title>ara</title>
+                    <title>Film Ara</title>
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&family=Roboto&display=swap" rel="stylesheet" />
                 </Head>

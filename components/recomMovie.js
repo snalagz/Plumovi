@@ -56,7 +56,7 @@ function RecomMovie() {
 
     return (
         <div>
-            { uid && <h3>Senin İçin Film Önerilerimiz</h3> } 
+            {uid && <h3>Senin İçin Film Önerilerimiz</h3>}
             <div className="tabs">
                 {recom.map(item => (
                     <Card style={{
@@ -76,13 +76,12 @@ function RecomMovie() {
 
 
                         <Card.Body>
-                            <Card.Subtitle>
-                                <FaStar /> <Badge variant="danger" style={{ verticalAlign: 'baseline, ' }}>{item.vote_average}</Badge>
+                            <Card.Subtitle style={{ marginBottom: '2px' }}>
+                                <Badge variant="danger" style={{ verticalAlign: 'baseline' }}>  {item.vote_average} Ort</Badge>  <Badge variant="primary" style={{ verticalAlign: 'baseline' }}> {item.vote_count} Oy</Badge>
                             </Card.Subtitle>
                             {
-
                                 <Card.Link href={item.href.toLowerCase()}>
-                                    <Card.Subtitle className="mb-2 text-muted" style={{ marginTop: '3px' }}>{item.title}</Card.Subtitle>
+                                    <Card.Subtitle className="mb-2 text-muted" style={{ marginTop: '3px' }}>{item.title} </Card.Subtitle>
                                 </Card.Link>
                             }
                         </Card.Body>
