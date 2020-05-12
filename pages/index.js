@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import TrendsMovie from '../components/trendsMovie'
 import TrendsTV from '../components/trendsTV'
 import RecomMovie from '../components/recomMovie'
@@ -18,7 +18,10 @@ import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Form from 'react-bootstrap/Form'
+import Alert from 'react-bootstrap/Alert'
+
 function Home({ dataTrendsMovie, dataTrendsTV, dataLatest, dataHighAverage }) {
+
   return (
     <Container fluid style={{ paddingLeft: 0, paddingRight: 0 }}>
       <Head>
@@ -29,9 +32,15 @@ function Home({ dataTrendsMovie, dataTrendsTV, dataLatest, dataHighAverage }) {
       </Head>
       <Navbar />
 
-
       <Container>
-        <Row style={{ marginTop: '20px' }}>
+        <Row style={{ marginTop: '5px;' }}>
+          <Alert variant="danger" >
+            Giriş yap, beğendiğin filmleri seç, anasayfanda <strong>sana özel film önerilerini gör ! </strong>(Google hesabıyla giriş işlemi
+            tamamen Google kontrolündedir, şifreniz asla paylaşılmaz. )
+          </Alert>
+        </Row>
+
+        <Row>
           <Col>
             <RecomMovie />
           </Col>
@@ -50,7 +59,7 @@ function Home({ dataTrendsMovie, dataTrendsTV, dataLatest, dataHighAverage }) {
           <Col sm={12}>
             <h2>Bugün En Popüler</h2>
           </Col>
-          <Col sm={12}> 
+          <Col sm={12}>
             <TrendsMovie dataMovies={dataTrendsMovie} />
           </Col>
         </Row>
@@ -116,7 +125,7 @@ export async function getServerSideProps({ query }) {
   const dataHighAverage = await resHighAverage.json();
 
 
-  
+
   // Pass data to the page via props
   return {
     props: {
