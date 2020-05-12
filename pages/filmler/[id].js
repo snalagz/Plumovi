@@ -254,6 +254,7 @@ function movieDetail(props) {
                 }
                 .overView{
                     margin-top:5px;
+                    padding: 5px;
                 }
                 .right{
                     flex:20;
