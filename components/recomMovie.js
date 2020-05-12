@@ -47,7 +47,7 @@ function RecomMovie() {
                             recom.push(movie)
                         })
                     })
-                    setRecom(recom);
+                    setRecom(recom.reverse());
                 });
             });
         }
