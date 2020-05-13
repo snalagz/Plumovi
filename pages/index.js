@@ -29,6 +29,27 @@ function Home({ dataTrendsMovie, dataTrendsTV, dataLatest, dataHighAverage }) {
         <title>Filmbul - Film ve Dizi Önerileri, Listeler, Yorumlar, Fragmanlar</title>
         <meta name="description" content="Filmbul.org - En güncel film ve dizi önerileri, fragmanlar, 
         film bilgileri, listeler. Beğendiğin filmleri seç sana özel film önerilerini al !" />
+        {/* Global site tag (gtag.js) - Google Analytics */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=UA-91214712-6"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `<!-- Global site tag (gtag.js) - Google Analytics -->
+              <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163332503-1"></script>
+              <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+            
+              gtag('config', 'UA-91214712-6');
+              </script>
+              `,
+          }}
+        />
+        />
+
       </Head>
       <Navbar />
 
@@ -36,7 +57,7 @@ function Home({ dataTrendsMovie, dataTrendsTV, dataLatest, dataHighAverage }) {
         <Row style={{ marginTop: '5px;' }}>
           <Alert variant="danger" >
             Giriş yap, beğendiğin filmleri seç, anasayfanda <strong>sana özel film önerilerini gör ! </strong>(Google hesabıyla giriş işlemi
-            tamamen Google kontrolündedir, şifreniz asla paylaşılmaz. )
+            tamamen Google kontrolündedir, google şifrenizi asla paylaşılmaz. )
           </Alert>
         </Row>
 
