@@ -15,57 +15,6 @@ import Store from '../store/store'
 import Link from 'next/link'
 
 function mNavbar() {
-
-    const closeAuth = () => {
-        localStorage.removeItem("filmbulUid");
-        location.reload();
-    }
-    const auth = () => {
-        console.log(localStorage);
-        const provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().languageCode = 'tr';
-        firebase.auth().signInWithPopup(provider).then(function (result) {
-            const token = result.credential.accessToken;
-            const user = result.user;
-            const uid = user.uid;
-            const db = firebase.firestore();
-            var docRef = db.collection("Users").doc(uid);
-
-            docRef.get().then(function (doc) {
-                if (doc.exists) {
-                    localStorage.setItem("filmbulUid", uid);
-                    location.reload();
-                } else {
-                    db.collection("Users").doc(uid).set({
-                        email: user.email,
-                        displayName: user.displayName,
-                        photoURL: user.photoURL,
-                        likeMovies: [],
-                        watchList: [],
-                    })
-                        .then(function () {
-                            console.log("Document successfully written!");
-                            localStorage.setItem("filmbulUid", uid);
-                            location.reload();
-                        })
-                        .catch(function (error) {
-                            alert("Giriş Başarısız")
-                        });
-                }
-            }).catch(function (error) {
-                console.log("Error getting document:", error);
-            });
-
-        }).catch(function (error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            var email = error.email;
-            var credential = error.credential;
-            console.log(error)
-        });
-    }
-
-
     const [uid, setUid] = useState("");
     const [movieSearch, setMovieSearhc] = useState("");
 
@@ -114,19 +63,6 @@ function mNavbar() {
                         <NavDropdown.Item href="/filmler/kategori/tarih-filmleri/1">Tarih</NavDropdown.Item>
                         <NavDropdown.Item href="/filmler/kategori/vahsi-bati-filmleri/1">Vahşi Batı</NavDropdown.Item>
                     </NavDropdown>
-                    {
-                        uid ? [
-                            <NavDropdown title="Profil" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="/begendigim-filmler">Beğendiğim Filmler</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item onClick={() => closeAuth()}>Çıkış Yap</NavDropdown.Item>
-                            </NavDropdown>
-                        ] : [
-                                <Button variant="danger" style={{ marginLeft: '3px' }} onClick={() => auth()}>
-                                    <FaGoogle /> Giriş Yap
-                            </Button>
-                            ]
-                    }
                 </Nav>
                 <Form inline>
                     <FormControl type="text" placeholder="Örn: Yüzüklerin Efendisi" className="mr-sm-2"
