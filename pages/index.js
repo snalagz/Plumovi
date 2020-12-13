@@ -1,24 +1,16 @@
 import Head from "next/head";
 import React, { useContext, useState } from "react";
 import TrendsMovie from "../components/trendsMovie";
-import TrendsTV from "../components/trendsTV";
 import RecomMovie from "../components/recomMovie";
 import Latest from "../components/latest";
 import HighAverage from "../components/highAverage";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
-import Store from "../store/store";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
 import fetch from "node-fetch";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Tabs from "react-bootstrap/Tabs";
-import Tab from "react-bootstrap/Tab";
-import Jumbotron from "react-bootstrap/Jumbotron";
-import Form from "react-bootstrap/Form";
-import Alert from "react-bootstrap/Alert";
 
 function Home({
   dataTrendsMovie,
@@ -108,7 +100,7 @@ function Home({
             <Latest data={dataBest2020} />
           </Col>
         </Row>
-        
+
         <Row style={{ marginTop: "20px" }}>
           <Col sm={12}>
             <h2>2020 En Popüler Filmler</h2>
@@ -118,7 +110,6 @@ function Home({
           </Col>
         </Row>
 
-        
         <Footer />
       </Container>
 
